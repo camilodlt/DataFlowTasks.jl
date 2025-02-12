@@ -28,7 +28,7 @@ end
 for example in ["cholesky", "blur-roberts", "lcs", "sort"]
     println("\n*** Generating $example example")
     @time begin
-        dir = joinpath(DataFlowTasks.PROJECT_ROOT, "docs", "src", "examples", example)
+        dir = joinpath(DataFlowTasks._get_dataflowtasks_root(), "docs", "src", "examples", example)
         src = joinpath(dir, "$(example).jl")
         Literate.markdown(src, dir)
         draft || Literate.notebook(src, dir; preprocess = insert_setup)
@@ -37,7 +37,7 @@ end
 
 # generate readme
 println("\n*** Generating README")
-@time cd(joinpath(DataFlowTasks.PROJECT_ROOT, "docs", "src", "readme")) do
+@time cd(joinpath(DataFlowTasks._get_dataflowtasks_root(), "docs", "src", "readme")) do
     src = joinpath(pwd(), "README.jl")
 
     # Run code

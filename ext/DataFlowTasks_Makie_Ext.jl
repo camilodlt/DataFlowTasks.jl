@@ -1,3 +1,4 @@
+__precompile__()
 module DataFlowTasks_Makie_Ext
 
 using Makie

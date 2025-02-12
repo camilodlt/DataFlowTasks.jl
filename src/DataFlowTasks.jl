@@ -1,3 +1,5 @@
+__precompile__()
+
 """
     module DataFlowTask
 
@@ -5,7 +7,7 @@ Create `Task`s which can keep track of how data flows through it.
 """
 module DataFlowTasks
 
-const PROJECT_ROOT = pkgdir(DataFlowTasks)
+const PROJECT_ROOT::Ref{String} = Ref{String}()
 
 using OrderedCollections
 using Compat
@@ -15,6 +17,19 @@ import Scratch
 using Printf
 
 export @dspawn, @dasync
+
+
+"""
+    _get_dataflowtasks_root()
+
+Returns the current `PROJECT_ROOT` value.
+
+Does not assume the ref has been set.
+"""
+function _get_dataflowtasks_root()
+    global PROJECT_ROOT
+    return PROJECT_ROOT[]
+end
 
 """
     @enum AccessMode READ WRITE READWRITE
@@ -40,7 +55,15 @@ include("dag.jl")
 include("taskgraph.jl")
 include("arrayinterface.jl")
 
+"""
+    __init__()
+
+Initializes the `PROJECT_ROOT` global constant to the `pkgdir` 
+of the module
+"""
 function __init__()
+    global PROJECT_ROOT
+    PROJECT_ROOT[] = pkgdir(DataFlowTasks)
     # default scheduler
     capacity = 50
     tg = TaskGraph(capacity)
