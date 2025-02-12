@@ -3,7 +3,7 @@ using LinearAlgebra
 using DataFlowTasks
 import DataFlowTasks as DFT
 
-include(joinpath(DFT.PROJECT_ROOT, "test", "testutils.jl"))
+include(joinpath(DFT._get_dataflowtasks_root(), "test", "testutils.jl"))
 
 tg = DFT.TaskGraph(200)
 DFT.set_active_taskgraph!(tg)

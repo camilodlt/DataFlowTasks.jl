@@ -7,7 +7,7 @@ background = false
 sch = DataFlowTasks.PriorityScheduler(100, background)
 DataFlowTasks.setscheduler!(sch)
 
-include(joinpath(DataFlowTasks.PROJECT_ROOT, "test", "testutils.jl"))
+include(joinpath(DataFlowTasks._get_dataflowtasks_root(), "test", "testutils.jl"))
 
 @testset "Priority scheduler" begin
     @testset "Fork-join" begin

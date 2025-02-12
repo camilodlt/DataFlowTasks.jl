@@ -6,7 +6,7 @@ using LinearAlgebra
 sch = DataFlowTasks.StaticScheduler()
 DataFlowTasks.setscheduler!(sch)
 
-include(joinpath(DataFlowTasks.PROJECT_ROOT, "test", "testutils.jl"))
+include(joinpath(DataFlowTasks._get_dataflowtasks_root(), "test", "testutils.jl"))
 
 @testset "Static scheduler" begin
     @testset "Fork-join" begin
