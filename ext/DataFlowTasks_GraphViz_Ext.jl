@@ -1,4 +1,3 @@
-__precompile__()
 module DataFlowTasks_GraphViz_Ext
 
 using GraphViz

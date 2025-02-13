@@ -7,7 +7,12 @@ Create `Task`s which can keep track of how data flows through it.
 """
 module DataFlowTasks
 
-const PROJECT_ROOT::Ref{String} = Ref{String}()
+dir = pkgdir(DataFlowTasks)
+@static if VERSION > v"1.8"
+    const PROJECT_ROOT::Ref{String} = Ref{String}(dir)
+else
+    const PROJECT_ROOT = Ref{String}(dir)
+end
 
 using OrderedCollections
 using Compat
@@ -17,7 +22,6 @@ import Scratch
 using Printf
 
 export @dspawn, @dasync
-
 
 """
     _get_dataflowtasks_root()
@@ -58,12 +62,8 @@ include("arrayinterface.jl")
 """
     __init__()
 
-Initializes the `PROJECT_ROOT` global constant to the `pkgdir` 
-of the module
 """
 function __init__()
-    global PROJECT_ROOT
-    PROJECT_ROOT[] = pkgdir(DataFlowTasks)
     # default scheduler
     capacity = 50
     tg = TaskGraph(capacity)
